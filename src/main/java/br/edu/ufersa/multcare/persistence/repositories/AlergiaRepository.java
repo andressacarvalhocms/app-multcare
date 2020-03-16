@@ -1,12 +1,17 @@
 package br.edu.ufersa.multcare.persistence.repositories;
 
-import br.edu.ufersa.multcare.persistence.entities.Alergia;
-import br.edu.ufersa.multcare.persistence.interfaces.IDbContext;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public class AlergiaRepository extends AbstractReporitory<Alergia>
-{
-	public AlergiaRepository(IDbContext context) 
-	{
-		super(context, Alergia.class);
-	}
+import br.edu.ufersa.multcare.persistence.entities.Alergia;
+
+
+@Repository
+public interface AlergiaRepository extends JpaRepository<Alergia, Long>{
+
+	Alergia findById(long id);
+	Alergia findByNome(String nome);
+//	Exame deleteById(int id);
+	
+
 }

@@ -1,12 +1,15 @@
 package br.edu.ufersa.multcare.persistence.repositories;
 
-import br.edu.ufersa.multcare.persistence.entities.Exame;
-import br.edu.ufersa.multcare.persistence.interfaces.IDbContext;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public class ExameRepository extends AbstractReporitory<Exame> 
-{
-	public ExameRepository(IDbContext context) 
-	{
-		super(context, Exame.class);
-	}
+import br.edu.ufersa.multcare.persistence.entities.Exame;
+
+@Repository
+public interface ExameRepository extends JpaRepository<Exame, Long>{
+
+	Exame findById(long id);
+	Exame findByNome(String nome);
+//	Exame deleteById(int id);
+	
 }

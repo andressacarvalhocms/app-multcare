@@ -17,7 +17,7 @@ public class Exame implements IEntity {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	private String nome;
 	private String resultado;
 	private Date dataCadastro;
@@ -28,7 +28,7 @@ public class Exame implements IEntity {
 	/* GETTERS */
 
 	public int getId() {
-		return id;
+		return (int) id;
 	}
 	public String getNome() {
 		return nome;

@@ -1,12 +1,14 @@
 package br.edu.ufersa.multcare.persistence.repositories;
 
-import br.edu.ufersa.multcare.persistence.entities.Medicamento;
-import br.edu.ufersa.multcare.persistence.interfaces.IDbContext;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public class MedicamentoRepository extends AbstractReporitory<Medicamento> 
-{
-	public MedicamentoRepository(IDbContext context) 
-	{
-		super(context, Medicamento.class);
-	}
+import br.edu.ufersa.multcare.persistence.entities.Medicamento;
+
+@Repository
+public interface MedicamentoRepository extends JpaRepository<Medicamento, Long>{
+
+	Medicamento findById(long id);
+	Medicamento findByNome(String nome);
+//	
 }

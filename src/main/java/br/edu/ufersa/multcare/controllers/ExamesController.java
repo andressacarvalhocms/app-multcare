@@ -1,19 +1,10 @@
 package br.edu.ufersa.multcare.controllers;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import br.edu.ufersa.multcare.persistence.Repositories;
-import br.edu.ufersa.multcare.persistence.entities.Exame;
-import br.edu.ufersa.multcare.persistence.exceptions.DbContextException;
 
 @RestController
 public class ExamesController {
-	
+/*	
 	@RequestMapping("/exames/adicionar")
     public String adicionar() {
         return null;
@@ -56,5 +47,5 @@ public class ExamesController {
     public List<Exame> listar() throws DbContextException {
 		List<Exame> exames = Repositories.exames.findAll();
         return exames;
-    }
+    } */
 }

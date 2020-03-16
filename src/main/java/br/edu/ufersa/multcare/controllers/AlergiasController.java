@@ -1,19 +1,10 @@
 package br.edu.ufersa.multcare.controllers;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import br.edu.ufersa.multcare.persistence.Repositories;
-import br.edu.ufersa.multcare.persistence.entities.Alergia;
-import br.edu.ufersa.multcare.persistence.exceptions.DbContextException;
 
 @RestController
 public class AlergiasController {
-	
+	/*
 	@RequestMapping("/alergias/adicionar")
     public String adicionar() {
         return null;
@@ -55,5 +46,5 @@ public class AlergiasController {
     public List<Alergia> listar() throws DbContextException {
 		List<Alergia> alergias = Repositories.alergias.findAll();
         return alergias;
-    }
+    } */
 }
