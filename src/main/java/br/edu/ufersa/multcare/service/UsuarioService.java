@@ -4,12 +4,14 @@ import br.edu.ufersa.multcare.persistence.entities.Usuario;
 import br.edu.ufersa.multcare.shared.dto.UsuarioDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public interface UsuarioService {
 
     String cadastrarUsuario(UsuarioDTO usuarioDTO);
 
-    Usuario obterUsuarioPorLogin(String login);
+    Optional <Usuario> obterUsuarioPorLogin(String login);
 
     Usuario obterUsuarioPorNome(String nome);
 }

@@ -1,18 +1,18 @@
 package br.edu.ufersa.multcare.persistence.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-import br.edu.ufersa.multcare.persistence.interfaces.IEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@Table(uniqueConstraints = {
+		@UniqueConstraint(columnNames = "nome"),
+		@UniqueConstraint(columnNames = "login")
+})
 @Getter @Setter @ToString
-public class Usuario implements IEntity {	
+public class Usuario {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

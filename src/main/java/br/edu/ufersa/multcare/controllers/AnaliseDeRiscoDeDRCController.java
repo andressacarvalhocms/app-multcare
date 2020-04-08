@@ -1,22 +1,20 @@
  package br.edu.ufersa.multcare.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import br.edu.ufersa.multcare.persistence.exceptions.DbContextException;
-import weka.classifiers.trees.J48;
-import weka.core.Attribute;
-import weka.core.DenseInstance;
-import weka.core.Instance;
-import weka.core.Instances;
-import weka.core.converters.ConverterUtils.DataSource;
+ import org.springframework.web.bind.annotation.GetMapping;
+ import org.springframework.web.bind.annotation.RequestMapping;
+ import org.springframework.web.bind.annotation.RestController;
+ import weka.classifiers.trees.J48;
+ import weka.core.Attribute;
+ import weka.core.DenseInstance;
+ import weka.core.Instance;
+ import weka.core.Instances;
+ import weka.core.converters.ConverterUtils.DataSource;
 
 @RestController
 public class AnaliseDeRiscoDeDRCController {
 	
 	@RequestMapping("/consultar-historico-analises")
-    public String consultarHistoricoAnalises() throws DbContextException {
+    public String consultarHistoricoAnalises()  {
 	//	List<Analise> analises = Repositories.analises.findAll();
 	//	List<Analise> analises = Repositories.analises.findAll();
 		

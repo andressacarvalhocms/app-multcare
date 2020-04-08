@@ -6,9 +6,10 @@ import br.edu.ufersa.multcare.service.UsuarioService;
 import br.edu.ufersa.multcare.shared.builder.UsuarioBuilder;
 import br.edu.ufersa.multcare.shared.dto.UsuarioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import static br.edu.ufersa.multcare.auth.UserJWTController.passwordHash;
+import java.util.Optional;
 
 
 @Component
@@ -17,6 +18,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     private UsuarioRepository usuariosRepository;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     @Override
     public String cadastrarUsuario(UsuarioDTO usuarioDTO) {
@@ -32,7 +36,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario obterUsuarioPorLogin(String login) {
+    public Optional<Usuario> obterUsuarioPorLogin(String login) {
         return usuariosRepository.findUsuarioByLoginEquals(login);
     }
 
@@ -43,9 +47,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     private void validarSeJaExisteUsuario(UsuarioDTO usuarioDTO) {
 
-        Usuario user = usuariosRepository.findUsuarioByNomeEqualsAndLoginEquals(usuarioDTO.getNome(), usuarioDTO.getLogin());
-        if (user != null) {
-            throw new RuntimeException("Usuário já existente");
+        if (usuariosRepository.existsUsuarioByNome(usuarioDTO.getNome())) {
+            throw new RuntimeException("Usuário "+usuarioDTO.getNome() +" já Cadastrado");
+        }
+
+        if (usuariosRepository.existsUsuarioByLogin(usuarioDTO.getLogin())) {
+            throw new RuntimeException("Usuário já cadastrado com esse Login");
         }
     }
 
@@ -57,7 +64,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .comLogin(usuarioDTO.getLogin())
                 .comIdade(usuarioDTO.getIdade())
                 .comPeso(usuarioDTO.getPeso())
-                .comSenha(passwordHash(usuarioDTO.getSenha()))
+                .comSenha(encoder.encode(usuarioDTO.getSenha()))
                 .comSexo(usuarioDTO.getSexo())
                 .build();
     }
