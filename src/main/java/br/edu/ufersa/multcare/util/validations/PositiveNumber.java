@@ -1,4 +1,4 @@
-package br.edu.ufersa.multcare.persistence.validations;
+package br.edu.ufersa.multcare.util.validations;
 
 import br.edu.ufersa.multcare.persistence.interfaces.IValidator;
 

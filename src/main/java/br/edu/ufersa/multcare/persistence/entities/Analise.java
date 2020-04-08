@@ -10,9 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import br.edu.ufersa.multcare.persistence.interfaces.IEntity;
-import br.edu.ufersa.multcare.persistence.validations.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
+@Getter @Setter @ToString
 public class Analise implements IEntity {	
 	
 	@Id
@@ -23,35 +26,5 @@ public class Analise implements IEntity {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Usuario usuario;
-	
-	/* GETTERS */
 
-	public int getId() {
-		return id;
-	}
-	public String getSituacao() {
-		return situacao;
-	}
-	public Date getDataCadastro() {
-		return dataCadastro;
-	}
-	public Usuario getUsuario() {
-		return usuario;
-	}	
-	
-	/* SETTERS */
-	
-	public void setId(int id) {
-		this.id = id;
-	}
-	public void setSituacao(String situacao) throws IllegalArgumentException {
-		(new NotNull("Situação")).isValid(situacao);
-		this.situacao = situacao;
-	}
-	public void setDataCadastro(Date dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 }

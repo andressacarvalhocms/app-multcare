@@ -1,35 +1,42 @@
 package br.edu.ufersa.multcare.auth;
 
-import java.security.MessageDigest;
-import java.util.Date;
-
+import br.edu.ufersa.multcare.persistence.entities.Usuario;
+import br.edu.ufersa.multcare.service.UsuarioService;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.springframework.stereotype.Component;
 
-import br.edu.ufersa.multcare.persistence.Repositories;
-import br.edu.ufersa.multcare.persistence.entities.Usuario;
+import java.security.MessageDigest;
+import java.util.Date;
 
-public class Authentication {
-	
-	public static String secret = "secret";
-	
-	public static String authenticate(String username, String password) throws AuthenticationException
+@Component
+public class UserJWTController {
+
+	private UsuarioService usuarioService;
+
+	public String secret = "secret";
+
+	public UserJWTController(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
+	}
+
+	public String authenticate(String username, String password) throws AuthenticationException
 	{
 		try {
-			Usuario user = Repositories.usuarios.findByUsername(username);
-			if(user == null)
+			Usuario user = usuarioService.obterUsuarioPorLogin(username);
+			if(user == null) {
 				throw new AuthenticationException("Usuário não encontrado");
+			}
 			
 			String hashPassword = passwordHash(password);
-			if(!hashPassword.equals(user.getSenha()))
+
+			if(!hashPassword.equals(user.getSenha())) {
 				throw new AuthenticationException("Senha incorreta");
-			
-			String token = Authentication.JWTTokenGen(user.getLogin());
-			
-			return token;
-				
+			}
+
+			return JWTTokenGen(user.getLogin());
 		} catch (AuthenticationException e) {
 			throw e;
 		} catch (Exception e) {
@@ -37,11 +44,11 @@ public class Authentication {
 		}
 	}
 	
-	public static Usuario getLoggedUserByToken(String token) throws AuthenticationException {
+	public Usuario getLoggedUserByToken(String token) throws AuthenticationException {
 		try {
-			String username = Authentication.JWTTokenVerify(token);
+			String username = JWTTokenVerify(token);
 			
-			Usuario user = Repositories.usuarios.findByUsername(username);
+			Usuario user = usuarioService.obterUsuarioPorNome(username);
 			if(user == null)
 				throw new AuthenticationException("Usuário não encontrado");
 			
@@ -51,10 +58,10 @@ public class Authentication {
 		}
 	}
 	
-	public static String JWTTokenGen(String uuid) {
+	public String JWTTokenGen(String uuid) {
 		try {
 			
-			Algorithm algorithmHS = Algorithm.HMAC256(Authentication.secret);
+			Algorithm algorithmHS = Algorithm.HMAC256(secret);
 		    String token = JWT.create()
 		        .withIssuer(uuid).withExpiresAt(new Date(System.currentTimeMillis() + (60 * 60 * 24)))
 		        .sign(algorithmHS);
@@ -64,9 +71,9 @@ public class Authentication {
 		}
 	}
 	
-	public static String JWTTokenVerify(String token) {
+	public String JWTTokenVerify(String token) {
 		try {
-		    Algorithm algorithm = Algorithm.HMAC256(Authentication.secret);
+		    Algorithm algorithm = Algorithm.HMAC256(secret);
 		    JWTVerifier verifier = JWT.require(algorithm)
 		        .withIssuer("auth0")
 		        .build(); //Reusable verifier instance

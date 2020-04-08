@@ -1,4 +1,4 @@
-package br.edu.ufersa.multcare.resources;
+package br.edu.ufersa.multcare.web.resources;
 
 import java.util.List;
 

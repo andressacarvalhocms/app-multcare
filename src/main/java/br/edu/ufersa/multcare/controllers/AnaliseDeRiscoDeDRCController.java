@@ -30,7 +30,7 @@ public class AnaliseDeRiscoDeDRCController {
 //        //------------------------------------------------------
 //        // (1) importação da base de dados de treinamento
 //        //------------------------------------------------------
-         DataSource source = new DataSource("D:\\MESTRADO\\ARTIGO DRC\\dados_pos_revisao\\cross validation - dados reavaliados\\3 revisão\\comparacao com 10 folds\\1 fold\\fold 1 treinamento.arff");
+         DataSource source = new DataSource("base_treinamento.arff");
          Instances D = source.getDataSet();
 //         
 //         // 1.1 - espeficicação do atributo classe
