@@ -5,7 +5,6 @@ import br.edu.ufersa.multcare.persistence.entities.Usuario;
 import br.edu.ufersa.multcare.persistence.repositories.MedicamentoRepository;
 import br.edu.ufersa.multcare.service.MedicamentoService;
 import br.edu.ufersa.multcare.service.UsuarioService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -16,11 +15,14 @@ import static br.edu.ufersa.multcare.security.SecurityUtils.obterIdUsuarioAutent
 @Component
 public class MedicamentoServiceImpl implements MedicamentoService {
 
-    @Autowired
-    private MedicamentoRepository medicamentoRepository;
+    private final MedicamentoRepository medicamentoRepository;
 
-    @Autowired
-    private UsuarioService usuarioService;
+    private final UsuarioService usuarioService;
+
+    public MedicamentoServiceImpl(MedicamentoRepository medicamentoRepository, UsuarioService usuarioService) {
+        this.medicamentoRepository = medicamentoRepository;
+        this.usuarioService = usuarioService;
+    }
 
     @Override
     public List<Medicamento> listarMedicamentoUsuarioLogado() {

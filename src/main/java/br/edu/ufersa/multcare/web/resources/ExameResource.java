@@ -1,22 +1,16 @@
 package br.edu.ufersa.multcare.web.resources;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import br.edu.ufersa.multcare.persistence.entities.Exame;
-import br.edu.ufersa.multcare.persistence.repositories.ExameRepository;
+import br.edu.ufersa.multcare.service.ExameService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static java.lang.Boolean.TRUE;
 
 @RestController
 @RequestMapping(value="/api")
@@ -25,41 +19,33 @@ import io.swagger.annotations.ApiOperation;
 public class ExameResource {
 	
 	@Autowired
-	ExameRepository exameRepository;
+	private ExameService exameService;
 	
-	@GetMapping("/exames")
-	@ApiOperation(value="Retorna uma lista de exames")
-	public List<Exame> listaExames(){
-		return exameRepository.findAll();
+	@GetMapping("/examesUsuario")
+	@ApiOperation(value="Retorna uma lista de exames do usuário logado")
+	public ResponseEntity<List<Exame>> listaExames(){
+		List<Exame> exames = exameService.listarExamesUsuarioLogado();
+		return ResponseEntity.ok(exames);
 	}
-	
-	
-	@GetMapping("/exames/{id}")
-	@ApiOperation(value="Retorna um exame")
-	public Exame listaExamesUnico(@PathVariable(value="id") long id){
-		return exameRepository.findById(id);
-	}
-
-	@GetMapping("/exames/nome/{nome}")
-	public Exame listaExamesCreatinina(@PathVariable(value="nome") String nome){
-		return exameRepository.findByNome(nome);
-	} 
 
 	@PostMapping("/exames")
 	@ApiOperation(value="salva um exame")
-	public Exame salvaExame(@RequestBody Exame exame) {
-		return exameRepository.save(exame);
+	public ResponseEntity<Exame> salvaExame(@RequestBody Exame exame) {
+		Exame exameSalvo = exameService.cadastrarExame(exame);
+		return ResponseEntity.ok(exameSalvo);
 	}
 	
 	@DeleteMapping("/exames")
 	@ApiOperation(value="deleta um exame")
-	public void deletaExame(@RequestBody Exame exame) {
-		exameRepository.delete(exame);
+	public ResponseEntity<Boolean> deletaExame(@RequestBody Exame exame){
+		exameService.deletarExame(exame);
+		return ResponseEntity.ok(TRUE);
 	}
 	
 	@PutMapping("/exames")
 	@ApiOperation(value="altera um exame")
-	public Exame atualizaExame(@RequestBody Exame exame) {
-		return exameRepository.save(exame);
+	public ResponseEntity<Exame> atualizaExame(@RequestBody Exame exame) {
+		Exame exameAtualizado = exameService.atualizarExame(exame);
+		return ResponseEntity.ok(exameAtualizado);
 	}
 }

@@ -5,7 +5,6 @@ import br.edu.ufersa.multcare.persistence.repositories.UsuarioRepository;
 import br.edu.ufersa.multcare.service.UsuarioService;
 import br.edu.ufersa.multcare.shared.builder.UsuarioBuilder;
 import br.edu.ufersa.multcare.shared.dto.UsuarioDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -16,11 +15,14 @@ import java.util.Optional;
 public class UsuarioServiceImpl implements UsuarioService {
 
 
-    @Autowired
-    private UsuarioRepository usuariosRepository;
+    private final UsuarioRepository usuariosRepository;
 
-    @Autowired
-    private PasswordEncoder encoder;
+    private final PasswordEncoder encoder;
+
+    public UsuarioServiceImpl(UsuarioRepository usuariosRepository, PasswordEncoder encoder) {
+        this.usuariosRepository = usuariosRepository;
+        this.encoder = encoder;
+    }
 
     @Override
     public String cadastrarUsuario(UsuarioDTO usuarioDTO) {

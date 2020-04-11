@@ -5,7 +5,6 @@ import br.edu.ufersa.multcare.persistence.entities.Usuario;
 import br.edu.ufersa.multcare.persistence.repositories.AlergiaRepository;
 import br.edu.ufersa.multcare.service.AlergiaService;
 import br.edu.ufersa.multcare.service.UsuarioService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -16,11 +15,14 @@ import static br.edu.ufersa.multcare.security.SecurityUtils.obterIdUsuarioAutent
 @Component
 public class AlergiaServiceImpl implements AlergiaService {
 
-    @Autowired
-    private AlergiaRepository alergiaRepository;
+    private final AlergiaRepository alergiaRepository;
 
-    @Autowired
-    private UsuarioService usuarioService;
+    private final UsuarioService usuarioService;
+
+    public AlergiaServiceImpl(AlergiaRepository alergiaRepository, UsuarioService usuarioService) {
+        this.alergiaRepository = alergiaRepository;
+        this.usuarioService = usuarioService;
+    }
 
 
     @Override
