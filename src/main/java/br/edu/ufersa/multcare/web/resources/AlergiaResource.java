@@ -25,7 +25,7 @@ public class AlergiaResource {
 	@Autowired
 	private AlergiaService alergiaService;
 
-	@GetMapping("/dele")
+	@GetMapping("/alergiaPorUsuario")
 	public ResponseEntity<List<Alergia>> listaAlergiaPorUsuario(){
 		List<Alergia> alergias = alergiaService.listarAlergiasPorUsuario();
 		return ResponseEntity.ok(alergias);
