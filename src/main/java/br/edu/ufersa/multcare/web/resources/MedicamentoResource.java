@@ -1,19 +1,12 @@
 package br.edu.ufersa.multcare.web.resources;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import br.edu.ufersa.multcare.persistence.entities.Medicamento;
-import br.edu.ufersa.multcare.persistence.repositories.MedicamentoRepository;
+import br.edu.ufersa.multcare.service.MedicamentoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -21,36 +14,29 @@ import br.edu.ufersa.multcare.persistence.repositories.MedicamentoRepository;
 public class MedicamentoResource {
 	
 	@Autowired
-	MedicamentoRepository medicamentoRepository;
-	
-	@GetMapping("/medicamento")
-	public List<Medicamento> listaMedicamento(){
-		return medicamentoRepository.findAll();
-	}
-	
-	
-		@GetMapping("/medicamento/{id}")
-	public Medicamento listaMedicamentosUnico(@PathVariable(value="id") long id){
-		return medicamentoRepository.findById(id);
+	private MedicamentoService medicamentoService;
+
+	@GetMapping("/medicamentoUsuario")
+	public ResponseEntity<List<Medicamento>> listaMedicamentoUsuario(){
+		List<Medicamento> medicamentos = medicamentoService.listarMedicamentoUsuarioLogado();
+		return ResponseEntity.ok(medicamentos);
 	}
 
-/*	@GetMapping("/exames/nome/{nome}")
-	public Exame listaExamesCreatinina(@PathVariable(value="nome") String nome){
-		return exameRepository.findByNome(nome);
-	} 
-*/
 	@PostMapping("/medicamento")
-	public Medicamento salvaMedicamento(@RequestBody Medicamento medicamento) {
-		return medicamentoRepository.save(medicamento);
+	public ResponseEntity<Medicamento> salvaMedicamento(@RequestBody Medicamento medicamento) {
+		Medicamento medicamentoSalvo = medicamentoService.cadastrarMedicamento(medicamento);
+		return ResponseEntity.ok(medicamentoSalvo);
 	}
 	
 	@DeleteMapping("/medicamento")
 	public void deletaMedicamento(@RequestBody Medicamento medicamento) {
-		medicamentoRepository.delete(medicamento);
+		medicamentoService.deletarMedicamento(medicamento);
+		ResponseEntity.ok();
 	}
 	
 	@PutMapping("/medicamento")
-	public Medicamento atualizaMedicamento(@RequestBody Medicamento medicamento) {
-		return medicamentoRepository.save(medicamento);
+	public ResponseEntity<Medicamento> atualizaMedicamento(@RequestBody Medicamento medicamento) {
+		Medicamento medicamentoAtualizado = medicamentoService.atualizarMedicamento(medicamento);
+		return ResponseEntity.ok(medicamentoAtualizado);
 	}
 }

@@ -13,4 +13,6 @@ public interface UsuarioService {
 
     Optional <Usuario> obterUsuarioPorLogin(String login);
 
+    Usuario obterUsuarioPorId(Integer id);
+
 }
