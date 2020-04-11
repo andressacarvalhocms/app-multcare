@@ -10,10 +10,10 @@ import javax.validation.constraints.NotNull;
 @Getter @Setter @ToString
 public class LoginDTO {
 
-    @NotNull(message = "O campo idade é obrigatório") @NotEmpty
-    private String usuario;
+    @NotNull(message = "O campo Password é obrigatório") @NotEmpty
+    private String password;
 
-    @NotNull(message = "O campo nome é obrigatório") @NotEmpty
-    private String senha;
+    @NotNull(message = "O campo login é obrigatório") @NotEmpty
+    private String username;
 
 }

@@ -40,11 +40,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuariosRepository.findUsuarioByLoginEquals(login);
     }
 
-    @Override
-    public Usuario obterUsuarioPorNome(String nome) {
-        return usuariosRepository.findUsuarioByNomeEquals(nome);
-    }
-
     private void validarSeJaExisteUsuario(UsuarioDTO usuarioDTO) {
 
         if (usuariosRepository.existsUsuarioByNome(usuarioDTO.getNome())) {

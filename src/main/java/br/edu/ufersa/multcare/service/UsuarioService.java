@@ -13,5 +13,4 @@ public interface UsuarioService {
 
     Optional <Usuario> obterUsuarioPorLogin(String login);
 
-    Usuario obterUsuarioPorNome(String nome);
 }
