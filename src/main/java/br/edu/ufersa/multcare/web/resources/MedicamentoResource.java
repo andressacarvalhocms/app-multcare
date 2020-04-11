@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static java.lang.Boolean.TRUE;
+
 
 @RestController
 @RequestMapping(value="/api")
@@ -29,9 +31,9 @@ public class MedicamentoResource {
 	}
 	
 	@DeleteMapping("/medicamento")
-	public void deletaMedicamento(@RequestBody Medicamento medicamento) {
+	public ResponseEntity<Boolean> deletaMedicamento(@RequestBody Medicamento medicamento) {
 		medicamentoService.deletarMedicamento(medicamento);
-		ResponseEntity.ok();
+		return ResponseEntity.ok(TRUE);
 	}
 	
 	@PutMapping("/medicamento")
