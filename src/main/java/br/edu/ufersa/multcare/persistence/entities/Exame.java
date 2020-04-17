@@ -22,6 +22,10 @@ public class Exame  {
 
 	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
+	private TipoExame tipoExame;
+
+	@JsonIgnore
+	@ManyToOne(fetch=FetchType.LAZY)
 	private Usuario usuario;
 
 }

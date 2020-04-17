@@ -2,6 +2,7 @@ package br.edu.ufersa.multcare.web.resources;
 
 import br.edu.ufersa.multcare.persistence.entities.Exame;
 import br.edu.ufersa.multcare.service.ExameService;
+import br.edu.ufersa.multcare.shared.exception.TipoExameNotFound;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class ExameResource {
 
 	@PostMapping("/exames")
 	@ApiOperation(value="salva um exame")
-	public ResponseEntity<Exame> salvaExame(@RequestBody Exame exame) {
+	public ResponseEntity<Exame> salvaExame(@RequestBody Exame exame) throws TipoExameNotFound {
 		Exame exameSalvo = exameService.cadastrarExame(exame);
 		return ResponseEntity.ok(exameSalvo);
 	}
