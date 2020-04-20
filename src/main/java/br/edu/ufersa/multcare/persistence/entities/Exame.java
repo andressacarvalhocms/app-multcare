@@ -19,10 +19,10 @@ public class Exame  {
 	private String nome;
 	private String resultado;
 	private Date dataCadastro;
+	private Integer codigoExame;
 
-	@JsonIgnore
-	@ManyToOne(fetch=FetchType.LAZY)
-	private TipoExame tipoExame;
+	@Column(name = "usuario_id", insertable = false, updatable = false)
+	private int idUsuario;
 
 	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)

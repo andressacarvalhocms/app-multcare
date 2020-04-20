@@ -16,5 +16,7 @@ public interface ExameRepository extends JpaRepository<Exame, Long>{
 
 	Exame findById(long id);
 	Exame findByNome(String nome);
+
+	Exame findDistinctTopByCodigoExameEqualsAndIdUsuarioEquals(Integer codExame, Integer idUsuario);
 	
 }
