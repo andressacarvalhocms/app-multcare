@@ -68,6 +68,8 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .comPeso(usuarioDTO.getPeso())
                 .comSenha(encoder.encode(usuarioDTO.getSenha()))
                 .comSexo(usuarioDTO.getSexo())
+                .comDiabetico(usuarioDTO.getDiabetico())
+                .comHipertenso(usuarioDTO.getHipertenso())
                 .build();
     }
 }

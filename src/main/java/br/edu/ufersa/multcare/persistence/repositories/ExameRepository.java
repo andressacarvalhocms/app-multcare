@@ -14,9 +14,11 @@ public interface ExameRepository extends JpaRepository<Exame, Long>{
 	@Query("select ex from Exame ex where ex.usuario.id= ?1")
 	List<Exame> listarExamesUsuario(Integer id);
 
-	Exame findById(long id);
-	Exame findByNome(String nome);
-
 	Exame findDistinctTopByCodigoExameEqualsAndIdUsuarioEquals(Integer codExame, Integer idUsuario);
-	
+
+	@Query(
+			nativeQuery = true,
+			value = "select * from exame where id = (select MAX(id) from exame where codigo_exame = ?1 and usuario_id= ?2)"
+	)
+	Exame obterExameMaisRecentePorUsuarioCodExame(Integer codExame, Integer usuarioId );
 }

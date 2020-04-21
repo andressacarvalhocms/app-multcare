@@ -22,6 +22,8 @@ public class Usuario {
 	private String senha;
 	private int idade;
 	private char sexo;
+	private char hipertenso;
+	private char diabetico;
 	private float peso;
 
 }

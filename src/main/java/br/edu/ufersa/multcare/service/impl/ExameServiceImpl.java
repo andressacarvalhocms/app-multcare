@@ -1,6 +1,5 @@
 package br.edu.ufersa.multcare.service.impl;
 
-import br.edu.ufersa.multcare.persistence.entities.CodigoExame;
 import br.edu.ufersa.multcare.persistence.entities.Exame;
 import br.edu.ufersa.multcare.persistence.entities.Usuario;
 import br.edu.ufersa.multcare.persistence.repositories.ExameRepository;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-import static br.edu.ufersa.multcare.persistence.entities.CodigoExame.getCodigoPorDescricao;
+import static br.edu.ufersa.multcare.persistence.entities.CodigoExame.*;
 import static br.edu.ufersa.multcare.security.SecurityUtils.obterIdUsuarioAutenticado;
 import static br.edu.ufersa.multcare.util.StringUtil.removerAcentos;
 import static br.edu.ufersa.multcare.util.StringUtil.substituirEspacosPorUnderScore;
@@ -58,7 +57,7 @@ public class ExameServiceImpl implements ExameService {
 
         Map<String, Boolean> map = new HashMap<>();
 
-        Arrays.asList(CodigoExame.values()).forEach(codigoExame -> {
+        Arrays.asList(CREATININA, UREIA, MICROALBUMINURIA, TFG).forEach(codigoExame -> {
             Exame exame = exameRepository.findDistinctTopByCodigoExameEqualsAndIdUsuarioEquals(codigoExame.getCodigo(), idUsuario);
             map.put(tratarDescricao(codigoExame.getDescricao()), exame != null);
         });

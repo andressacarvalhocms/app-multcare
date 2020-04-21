@@ -44,6 +44,16 @@ public class UsuarioBuilder {
         return this;
     }
 
+    public UsuarioBuilder comHipertenso(Character hipertenso) {
+        this.usuario.setHipertenso(hipertenso);
+        return this;
+    }
+
+    public UsuarioBuilder comDiabetico(Character diabetico) {
+        this.usuario.setDiabetico(diabetico);
+        return this;
+    }
+
     public Usuario build() {
         return this.usuario;
     }

@@ -28,4 +28,8 @@ public class UsuarioDTO {
     @NotNull(message = "O campo login é obrigatório") @NotEmpty
     private String login;
 
+    private Character hipertenso;
+
+    private Character diabetico;
+
 }
